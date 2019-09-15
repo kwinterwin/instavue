@@ -1,0 +1,597 @@
+@keyframes message_box_dissapeare {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+body,
+html {
+    height     : 100%;
+    font-family: "Braggadocio";
+}
+
+a {
+    color: black;
+}
+
+.page {
+    display       : flex;
+    flex-direction: column;
+    min-height    : 100%;
+    z-index       : 1;
+}
+
+.page>header {
+    margin-right   : 20%;
+    margin-left    : 20%;
+    height         : 100px;
+    display        : flex;
+    align-items    : center;
+    justify-content: space-between;
+}
+
+.page>header img {
+    height: 100%;
+}
+
+article {
+    flex-grow: 1;
+    display  : flex;
+}
+
+article aside {
+    flex: 1 0 20%;
+}
+
+article main {
+    background-color: rgba(241, 241, 226, 0.4);
+    padding         : 20px 50px;
+    box-sizing      : border-box;
+    flex            : 4 0 60%;
+    border          : 1px solid transparent;
+    border-radius   : 20px 20px 0 0;
+}
+
+footer {
+    background-color: #F0F0F0;
+    margin-left     : 20%;
+    margin-right    : 20%;
+    flex-grow       : 0;
+    height          : 50px;
+    display         : flex;
+    flex-direction  : row;
+    justify-content : space-around;
+}
+
+footer a {
+    flex-basis : 15%;
+    padding-top: 15px;
+    font-size  : 18px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
+
+.login_tabbar {
+    width: 100%;
+}
+
+.login_tabbar_item {
+    display    : inline-block;
+    font-family: Roboto, sans-serif;
+    font-size  : 16px;
+    font-weight: 500;
+    padding    : 10px 25px;
+    color      : #1CA1C1;
+    font-weight: 500;
+}
+
+.login_tabbar_item:hover {
+    cursor: pointer;
+}
+
+.login_tabbar_item.selected {
+    box-shadow : inset 0 -2px #17839d;
+    font-weight: 600;
+    color      : #17839d;
+}
+
+input:not([type='file']) {
+    display      : block;
+    border-radius: 7px;
+    text-align   : left;
+    font-size    : 14px;
+    height       : 100%;
+    padding      : 8px 12px;
+    border       : 1px solid #DADEE0;
+    color        : #475466;
+    background   : #ffffff;
+    font-family  : Roboto, sans-serif;
+    border-color : #CCD7E6;
+    outline      : none;
+    width        : 300px;
+    margin-top   : 20px;
+}
+
+.avatar-overlay .form-group {
+    margin-top: 42px;
+}
+
+.avatar-overlay input[type=file] {
+    outline       : 0;
+    opacity       : 0;
+    pointer-events: none;
+    user-select   : none;
+    margin        : 0;
+}
+
+.avatar-overlay .label {
+    display   : block;
+    padding   : 7px;
+    transition: border 150ms ease;
+    cursor    : pointer;
+    text-align: center
+}
+
+.avatar-overlay .label i {
+    display       : block;
+    font-size     : 42px;
+    padding-bottom: 16px
+}
+
+.avatar-overlay .label i,
+.avatar-overlay .label .title {
+    color     : grey;
+    transition: 200ms color
+}
+
+.avatar-overlay .label:hover i,
+.avatar-overlay .label:hover .title {
+    color: #000
+}
+
+
+input::placeholder,
+input::placeholder {
+    color: rgb(197, 197, 197);
+}
+
+.login_form button,
+.registration_form button,
+.custom-button {
+    background    : #F4F5F9;
+    color         : #1CA1C1;
+    border-radius : 7px;
+    cursor        : pointer;
+    padding       : 8px 60px;
+    font-family   : Roboto, sans-serif;
+    font-size     : 16px;
+    font-weight   : 600;
+    letter-spacing: 0px;
+    outline       : none;
+    border        : 1px solid transparent;
+    margin-top    : 20px;
+}
+
+.login_form button:hover,
+.registration_form button:hover,
+.custom-button:hover {
+    background: rgb(226, 226, 226);
+}
+
+.hello-message {
+    display: block;
+}
+
+.message-box {
+    position : fixed;
+    width    : 250px;
+    right    : 5px;
+    z-index  : 1000;
+    word-wrap: break-word;
+    top      : 5px;
+    padding  : 10px;
+    opacity  : 0;
+    z-index  : 210;
+}
+
+.error-message {
+    background-color: rgb(255, 222, 219);
+    border          : 1px solid rgb(255, 141, 130);
+    animation       : message_box_dissapeare 5s linear 0s 1 normal both;
+}
+
+.info-message {
+    background-color: rgb(255, 255, 255);
+    border          : 1px solid rgb(218, 222, 224);
+    animation       : message_box_dissapeare 5s linear 0s 1 normal both;
+}
+
+.debug-message {
+    background-color: rgb(255, 242, 219);
+    border          : 1px solid rgb(254, 210, 130);
+    animation       : message_box_dissapeare 5s linear 0s 1 normal both;
+}
+
+.success-message {
+    background-color: rgb(221, 245, 234);
+    border          : 1px solid rgb(136, 220, 182);
+    animation       : message_box_dissapeare 5s linear 0s 1 normal both;
+}
+
+.hidden-block {
+    display: none !important;
+}
+
+.users-list {
+    display       : flex;
+    width         : 100%;
+    flex-direction: column;
+}
+
+h2 {
+    display    : inline-block;
+    font-family: "Brush Script MT";
+    font-size  : 40px;
+    margin     : 12px 0 16px 0;
+}
+
+.users-list h2::before {
+    font-family : "Font Awesome 5 Free";
+    content     : "\f03a";
+    color       : black;
+    margin-right: 20px;
+    font-size   : 30px;
+}
+
+.users-editable-form h2::before,
+.aboutUsInformation h2::before,
+.allPhotos h2::before {
+    font-family : "Font Awesome 5 Free";
+    content     : "\f053";
+    color       : black;
+    margin-right: 20px;
+    font-size   : 30px;
+}
+
+.users-editable-form h2:hover,
+.aboutUsInformation h2:hover {
+    cursor: pointer;
+}
+
+.list-item {
+    height       : 90px;
+    width        : 100%;
+    margin-bottom: 15px;
+    border       : 1px solid transparent;
+    box-sizing   : border-box;
+    border-radius: 10px;
+    display      : flex;
+    align-items  : center;
+    box-shadow   : 0 5px 7px rgba(0, 0, 0, 0.25), 0 6px 7px rgba(0, 0, 0, 0.22);
+    position     : relative;
+}
+
+.list-item .avatar {
+    height: 70px;
+    width : 70px;
+    margin: 0 10px;
+}
+
+.users-editable-form .avatar {
+    height: 180px;
+    width : 180px;
+    margin: 0 10px 20px 0;
+}
+
+.avatar-block .avatar-overlay {
+    position        : absolute;
+    width           : 180px;
+    height          : 180px;
+    top             : 0;
+    background-color: rgba(241, 241, 226, 0.4);
+    border          : 1px solid transparent;
+    box-sizing      : border-box;
+    border-radius   : 50%;
+}
+
+.avatar-block {
+    position: relative;
+}
+
+.avatar img {
+    width        : 100%;
+    height       : 100%;
+    border       : 1px solid transparent;
+    box-sizing   : border-box;
+    border-radius: 50%;
+}
+
+.list-item .user-information p {
+    margin: 0;
+}
+
+.list-item .user-information p:first-child {
+    font-size    : 21px;
+    font-style   : italic;
+    margin-bottom: 5px;
+}
+
+.list-item .user-information p:last-child {
+    color    : gray;
+    font-size: 18px;
+}
+
+.user-page {
+    display       : flex;
+    width         : 100%;
+    flex-direction: column;
+}
+
+.user-page-header {
+    display       : flex;
+    flex-direction: column;
+}
+
+.user-page-header-avatar-block {
+    display    : flex;
+    align-items: center;
+}
+
+.user-page-header-user-information ul {
+    padding-left: 0;
+    color       : #747474;
+}
+
+.user-page-header-user-information ul li {
+    list-style-type: none;
+}
+
+.user-page .avatar {
+    width       : 135px;
+    height      : 135px;
+    margin-right: 50px;
+}
+
+.user-page .avatar img {
+    width        : 100%;
+    box-sizing   : border-box;
+    border       : 1px solid transparent;
+    border-radius: 50%;
+}
+
+.user-page-header a {
+    display      : inline-block;
+    padding      : 7px 15px;
+    font-family  : "Braggadocio";
+    font-size    : 18px;
+    font-style   : italic;
+    border       : 1px solid transparent;
+    border-radius: 10px;
+    font-weight  : normal;
+    color        : black;
+}
+
+.user-page-header-avatar-block a::before {
+    font-family : "Font Awesome 5 Free";
+    content     : "\f044";
+    color       : black;
+    margin-right: 8px;
+    font-size   : 20px;
+    font-style  : normal;
+}
+
+.fa-arrow-left {
+    font-size: 27px;
+}
+
+.fa-arrow-left:hover {
+    cursor: pointer;
+}
+
+.come-back-button {
+    margin-bottom: 20px;
+}
+
+.popup {
+    position        : absolute;
+    display         : flex;
+    width           : 500px;
+    height          : 335px;
+    flex-direction  : column;
+    background-color: white;
+    top             : 0;
+    bottom          : 0;
+    left            : 0;
+    right           : 0;
+    margin          : auto;
+    border          : 1px solid transparent;
+    border-radius   : 15px;
+}
+
+.popup-overlay {
+    background-color: rgba(0, 0, 0, 0.2);
+    width           : 100%;
+    height          : 100%;
+    position        : absolute;
+    z-index         : 200;
+}
+
+.popup-header {
+    width          : 100%;
+    display        : flex;
+    justify-content: space-between;
+    height         : 50px;
+    margin-bottom  : 10px;
+    margin-top     : 5px;
+}
+
+.popup-header i {
+    font-size: 20px;
+    margin   : 10px 15px 10px 0px;
+}
+
+.popup-header i:hover {
+    cursor: pointer;
+}
+
+.popup-header img {
+    height       : 100%;
+    border       : 1px solid transparent;
+    border-radius: 15px;
+    margin-left  : 20px;
+}
+
+.popup-body {
+    padding: 0 20px 20px 27px;
+}
+
+.hidden-overlay {
+    z-index   : -20;
+    visibility: hidden;
+}
+
+.users-editable-form label {
+    font-size : 18px;
+    display   : block;
+    color     : #5d5d5d;
+    font-style: italic;
+}
+
+.users-editable-form input {
+    margin-top   : 10px;
+    margin-bottom: 20px;
+}
+
+.user-edit-button {
+    position: absolute;
+    right   : 20px;
+}
+
+.user-edit-button button {
+    margin-top : 0;
+    color      : black;
+    padding    : 8px 24px;
+    font-weight: normal;
+}
+
+.users-editable-form button {
+    margin-top: 0;
+    border    : 1px solid #CCD7E6;
+    display   : block;
+}
+
+.user-edit-button span::before {
+    font-family : "Font Awesome 5 Free";
+    content     : "\f044";
+    color       : black;
+    margin-right: 8px;
+    font-size   : 15px;
+}
+
+.aboutUsInformation p {
+    text-align: center;
+}
+
+footer a:hover {
+    cursor: pointer;
+}
+
+.users-editable-section {
+    display       : flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+}
+
+.users-editable-section form {
+    flex-basis: 100%;
+    position  : relative;
+}
+
+.user-card {
+    flex-basis      : 40%;
+    background-color: whitesmoke;
+    padding         : 20px 50px;
+    margin          : 31px auto;
+    font-size       : 18px;
+    display         : block;
+    color           : #5d5d5d;
+    font-style      : italic;
+    font-weight     : bold;
+}
+
+.fa-check {
+    position  : absolute;
+    right     : 0;
+    font-size : 30px;
+    margin-top: 20px;
+    color     : darkgreen;
+}
+
+.fa-check:hover,
+.user-photogallery>div .fa-times:hover {
+    cursor: pointer;
+}
+
+.user-photogallery {
+    display        : flex;
+    flex-wrap      : wrap;
+    width          : 100%;
+    justify-content: space-between;
+}
+
+.user-photogallery>div {
+    flex-basis   : 32%;
+    height       : 150px;
+    margin-bottom: 10px;
+    position     : relative
+}
+
+.user-photogallery>div .fa-times {
+    position : absolute;
+    top      : 10px;
+    right    : 10px;
+    color    : crimson;
+    font-size: 15px;
+}
+
+.user-photogallery>div img {
+    width        : 100%;
+    height       : 100%;
+    border       : 1px solid transparent;
+    border-radius: 10px;
+}
+
+.photogallery {
+    display       : flex;
+    width         : 100%;
+    flex-direction: column;
+}
+
+.photogallery>div {
+    margin-bottom: 10px;
+}
+
+.photogallery>div img {
+    width : 100%;
+    height: 350px;
+}
+
+.photogallery>div p {
+    text-align: center;
+    margin    : 7px;
+    font-style: italic;
+}
