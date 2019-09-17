@@ -15,9 +15,10 @@ app.use((req, res, next) => {
 	next();
 });
 
-mongoose.connect("mongodb://localhost/instalama", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost/instalama", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 app.use(express.static("public"));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("uploads"));

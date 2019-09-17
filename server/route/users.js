@@ -82,8 +82,9 @@ const usersData = {
     },
 
     updateUser(req, res) {
+        const user = req.body;
         users
-            .updateOne({ _id: req.params.id }, req.body)
+            .findByIdAndUpdate(user.id, user)
             .then((data) => sendResult(200, data, res))
             .catch((err) => errorHandler(err, res))
     }
