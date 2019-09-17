@@ -257,7 +257,7 @@ h2 {
     font-size   : 30px;
 }
 
-.users-editable-form h2::before,
+.users-editable-section h2::before,
 .aboutUsInformation h2::before,
 .allPhotos h2::before {
     font-family : "Font Awesome 5 Free";
@@ -267,7 +267,7 @@ h2 {
     font-size   : 30px;
 }
 
-.users-editable-form h2:hover,
+.users-editable-section h2:hover,
 .aboutUsInformation h2:hover {
     cursor: pointer;
 }
@@ -310,6 +310,7 @@ h2 {
 
 .avatar-block {
     position: relative;
+    display : inline-block;
 }
 
 .avatar img {
@@ -534,11 +535,13 @@ footer a:hover {
 }
 
 .fa-check {
-    position  : absolute;
-    right     : 0;
-    font-size : 30px;
-    margin-top: 20px;
-    color     : darkgreen;
+    font-size    : 24px;
+    margin-bottom: 20px;
+    color        : darkgreen;
+}
+
+.fa-check::before {
+    margin-right: 10px;
 }
 
 .fa-check:hover,
