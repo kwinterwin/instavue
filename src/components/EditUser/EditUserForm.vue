@@ -13,7 +13,12 @@
           <label class="label">
             <i class="fa fa-camera"></i>
             <span class="title">Change avatar</span>
-            <input type="file" accept="image/*" :key="'avatar_file'" />
+            <input
+              type="file"
+              accept="image/*"
+              :key="'avatar_file'"
+              @change="$emit('avatarFileChange', $event.target.files[0])"
+            />
           </label>
         </div>
       </div>
@@ -37,7 +42,14 @@
       :key="'date_of_birth'"
       v-model="user.date_of_birth"
     />
-    <input type="file" accept="image/*" role="photogallery" multiple :key="'photogallery'" />
+    <input
+      type="file"
+      accept="image/*"
+      role="photogallery"
+      multiple
+      :key="'photogallery'"
+      @change="photogalleryInputChange"
+    />
   </form>
 </template>
 
@@ -53,12 +65,19 @@ export default {
   props: {
     user: Object
   },
+  created: function() {},
   computed: {
     userAvatar: function() {
+      if (this.user.currentAvatar) {
+        return this.user.currentAvatar;
+      }
       return this.user.avatarFile
         ? serverURL + "/" + this.user.avatarFile
         : "https://i.stack.imgur.com/aLNNU.png";
     }
+  },
+  methods: {
+    photogalleryInputChange: function(event) {}
   }
 };
 </script>
