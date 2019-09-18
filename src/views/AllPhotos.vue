@@ -12,7 +12,7 @@
 <script>
 import AllPhotosItem from "../components/AllPhotosItem";
 import axios from "axios";
-import {serverURL} from "../config";
+import { serverURL } from "../config";
 
 export default {
   name: "allPhotos",
@@ -25,9 +25,15 @@ export default {
     };
   },
   beforeCreate: function() {
-    axios
-      .get(`${serverURL}/userimages`)
-      .then(response => (this.photos = response.data));
+    axios.get(`${serverURL}/userimages`).then(response => {
+      this.photos = response.data;
+      this.photos.forEach(image => {
+        image.date = Date.parse(image.date);
+      });
+      this.photos.sort((a, b) => {
+        return b.date - a.date;
+      });
+    });
   }
 };
 </script>

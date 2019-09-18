@@ -34,6 +34,7 @@ const imagesData = {
         const files = req.files;
         let imgArray = [];
         const deletedImages = req.body.deletedImages;
+
         if (deletedImages && deletedImages.length) {
             if (typeof deletedImages === "string") {
                 findAndDelete(deletedImages);

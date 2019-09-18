@@ -4,32 +4,32 @@
       <h2>User information</h2>
     </router-link>
     <i class="fa fa-check" role="save" title="Save information" @click="saveUserInformation">Save</i>
-    <EditUserForm :user="user" @avatarFileChange="avatarFileChange" />
-    <section class="user-photogallery">
-      <EditUserPhotogalleryItem
-        v-for="(photo, index) in userPhotos"
-        :key="index"
-        :photoInfo="{photo:photo, index:index}"
-      />
-    </section>
+    <EditUserForm
+      :user="user"
+      @avatarFileChange="avatarFileChange"
+      :deletedMap="deletedMap"
+      :userPhotos="user.photos"
+      :isPhotogalleryChanged="isPhotogalleryChanged"
+    />
   </section>
 </template>
 
 <script>
 import EditUserForm from "../components/EditUser/EditUserForm";
-import EditUserPhotogalleryItem from "../components/EditUser/EditUserPhotogalleryItem";
 import axios from "axios";
 import { serverURL } from "../config";
+
 export default {
   name: "editUserPage",
-  components: { EditUserForm, EditUserPhotogalleryItem },
+  components: { EditUserForm },
   data: function() {
     return {
-      userPhotos: [],
       user: {
         currentAvatar: null
       },
-      userId: ""
+      userId: "",
+      deletedMap: new Map(),
+      isPhotogalleryChanged: false
     };
   },
   created: function() {
@@ -40,7 +40,9 @@ export default {
     fetchData: function() {
       axios.get(`${serverURL}/users/${this.userId}`).then(response => {
         this.user = Object.assign({}, response.data, this.user);
-        this.userPhotos = this.user.photos;
+        this.user.photos.forEach((photo, index) => {
+          photo.index = index;
+        });
       });
     },
     saveUserInformation: function() {
@@ -53,18 +55,37 @@ export default {
         this.user.avatarFile = null;
         axios.post(`${serverURL}/avatarImg`, formData).then(response => {
           this.user.avatarFile = response.data.filename;
-          debugger;
           this.putUserInformation();
         });
         isUserInformationChanged = true;
       }
-      if (true) {
-        //TODO: проверка на изменение фотографий
-        // return;
+      if (this.isPhotogalleryChanged) {
+        const images = new FormData();
+        for (let i = 0; i < this.user.photos.length; ) {
+          const item = this.user.photos[i];
+          if (item.file && item.hasOwnProperty("newImage")) {
+            this.user.photos.splice(i, 1);
+            images.append("img", item.file);
+          } else i++;
+        }
+        this.deletedMap.forEach(item => {
+          images.append("deletedImages", item._id);
+        });
+        images.append("user_id", this.userId);
+        axios.post(`${serverURL}/userimages`, images).then(files => {
+          if (files.data && files.data.length) {
+            files.data.forEach(file => {
+              this.user.photos.push(file);
+            });
+          }
+          this.putUserInformation();
+        });
+        isUserInformationChanged = true;
       }
       if (!isUserInformationChanged) {
         this.putUserInformation();
       }
+      this.$router.push({ path: "/" });
     },
     avatarFileChange: function(file) {
       this.user.currentAvatar = window.URL.createObjectURL(file);

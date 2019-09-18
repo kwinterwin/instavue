@@ -1,10 +1,9 @@
 const users = require("../models/users");
-const images = require("../route/images");
 
 function formatDate(ISOStringDate) {
     const date = new Date(Date.parse(ISOStringDate));
     let formatDate = "";
-    formatDate = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
+    formatDate = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
     return formatDate;
 }
 
@@ -14,9 +13,10 @@ function userJSONObject(user) {
         real_name: user.real_name,
         date_of_birth: formatDate(user.date_of_birth),
         email: user.email,
-        avatarFile: user.avatarFile
+        avatarFile: user.avatarFile,
+        photos: user.photos
     };
-};
+}
 
 function errorHandler(err, res) {
     res.status(500).send(err);
@@ -68,24 +68,25 @@ const usersData = {
         const userId = req.params.id;
         users
             .findOne({ _id: userId })
+            .populate("photos")
             .then((user) => {
-                images
-                    .getImages(userId)
-                    .then((data) => {
-                        user = userJSONObject(user);
-                        user.photos = data;
-                        sendResult(200, user, res);
-                    })
-                    .catch((err) => errorHandler(err, res));
+                user = userJSONObject(user);
+                sendResult(200, user, res);
             })
             .catch(() => sendResult(500, {}, res));
     },
 
     updateUser(req, res) {
-        const user = req.body;
+        let user = req.body;
         users
-            .findByIdAndUpdate(user.id, user)
-            .then((data) => sendResult(200, data, res))
+            .updateOne({ _id: user.id }, user)
+            .populate("photos")
+            .then((data) => {
+                if (data.ok) {
+                    user = userJSONObject(user);
+                    sendResult(200, user, res);
+                }
+            })
             .catch((err) => errorHandler(err, res))
     }
 };

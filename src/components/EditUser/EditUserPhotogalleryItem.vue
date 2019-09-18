@@ -1,7 +1,7 @@
 <template>
-  <div class="user-preview-image" :data-image-index="photoInfo.index">
-    <img :src="serverURL + '/' + photoInfo.photo.path" />
-    <i class="fa fa-times" @click="deletePhoto"></i>
+  <div class="user-preview-image" :data-image-index="photo.index">
+    <img :src="imageUrl" />
+    <i class="fa fa-times" @click="$emit('deletePhoto', $event.target)"></i>
   </div>
 </template>
 
@@ -11,16 +11,20 @@ import { serverURL } from "../../config";
 export default {
   name: "editUserPhotogalleryItem",
   props: {
-    photoInfo: Object
+    photo: Object
   },
   data: function() {
     return {
       serverURL: serverURL
     };
   },
-  methods:{
-    deletePhoto:function(){
-      // debugger
+  computed: {
+    imageUrl: function() {
+      let url = "";
+      if (this.photo.newImage) {
+        url = window.URL.createObjectURL(this.photo.file);
+      } else url = serverURL + "/" + this.photo.path;
+      return url;
     }
   }
 };
