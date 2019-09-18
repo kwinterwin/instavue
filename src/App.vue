@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="page">
-    <Header />
+    <Header @authorizationButtonClick="authorizationButtonClick" />
     <article>
       <aside></aside>
       <main>
@@ -9,20 +9,33 @@
       <aside></aside>
     </article>
     <Footer />
-    <!-- <PopupOverlay /> -->
+    <PopupOverlay :isHidden="isHidden" @closePopup="closePopup" />
   </div>
 </template>
 
 <script>
 import Header from "./views/General/Header";
 import Footer from "./views/General/Footer";
-// import PopupOverlay from "./components/Popup/PopupOverlay";
+import PopupOverlay from "./components/Popup/PopupOverlay";
 
 export default {
   components: {
     Header,
     Footer,
-    // PopupOverlay
+    PopupOverlay
+  },
+  data: function() {
+    return {
+      isHidden: true
+    };
+  },
+  methods: {
+    authorizationButtonClick: function() {
+      this.isHidden = false;
+    },
+    closePopup: function() {
+      this.isHidden = true;
+    }
   }
 };
 </script>
