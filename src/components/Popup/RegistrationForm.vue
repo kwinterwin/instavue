@@ -1,20 +1,47 @@
 <template>
   <form class="registration_form" role="registration">
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
+    <input type="email" name="email" placeholder="Email" :key="'reg_user_email'" required />
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      :key="'reg_user_password'"
+      required
+    />
     <input
       type="password"
       name="confirm_password"
       id="confirm_password"
       placeholder="Confirm password"
       required
+      :key="'reg_user_confirm_password'"
     />
-    <button type="submit">Enter</button>
+    <button type="submit" @click.prevent="userRegistration">Enter</button>
   </form>
 </template>
 
 <script>
+import axios from "axios";
+import { serverURL } from "../../config";
+
 export default {
-  name: "RegistrationForm"
+  name: "RegistrationForm",
+  methods: {
+    userRegistration: function() {
+      const formData = {};
+      Object.values(this.$el).forEach(obj => {
+        if (obj.name) {
+          formData[obj.name] = obj.value;
+        }
+      });
+      if (formData.confirm_password === formData.password) {
+        axios.post(`${serverURL}/users`, formData).then(response => {
+          // if (response.data && response.data.type === "success") {
+            
+          // }
+        });
+      }
+    }
+  }
 };
 </script>

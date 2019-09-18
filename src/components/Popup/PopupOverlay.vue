@@ -55,7 +55,6 @@ export default {
   },
   computed: {
     currentTabComponent: function() {
-      // debugger
       return this.tabs[this.currentTab].component;
     }
   }

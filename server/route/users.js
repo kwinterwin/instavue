@@ -76,6 +76,14 @@ const usersData = {
             .catch(() => sendResult(500, {}, res));
     },
 
+    checkedLoginInformation(req, res) {
+        const userInfo = req.query;
+        users.findOne(userInfo).then((user) => {
+            user = userJSONObject(user);
+            sendResult(200, user, res);
+        });
+    },
+
     updateUser(req, res) {
         let user = req.body;
         users

@@ -39,6 +39,7 @@ app.post("/avatarImg", upload.single("file"), (req, res) => {
 	}
 });
 
+app.get("/users/authorization", usersRoute.checkedLoginInformation);
 app.get("/users", usersRoute.getUsers);
 app.get("/users/:id", usersRoute.getUser);
 app.post("/users", usersRoute.addUser);
