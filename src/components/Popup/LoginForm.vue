@@ -35,6 +35,7 @@ export default {
               JSON.stringify(response.data)
             );
             this.$store.commit("userSessionSetter", true);
+            this.$emit("closePopup");
           }
         });
     }

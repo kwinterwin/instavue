@@ -15,7 +15,7 @@
             :class="{selected: currentTab == item.title}"
           />
         </div>
-        <component v-bind:is="currentTabComponent" class="tab"></component>
+        <component v-bind:is="currentTabComponent" class="tab" @closePopup="$emit('closePopup')"></component>
       </div>
     </div>
   </div>

@@ -38,6 +38,7 @@ export default {
         axios.post(`${serverURL}/users`, formData).then(response => {
           if (response.data && response.data.type === "success") {
             this.$store.dispatch("usersSetter");
+            this.$emit("closePopup");
           }
         });
       }
