@@ -23,17 +23,14 @@
 <script>
 import axios from "axios";
 import { serverURL } from "../../config";
+import { formMixin } from "../../mixins/formMixins";
 
 export default {
   name: "RegistrationForm",
+  mixins: [formMixin],
   methods: {
     userRegistration: function() {
-      const formData = {};
-      Object.values(this.$el).forEach(obj => {
-        if (obj.name) {
-          formData[obj.name] = obj.value;
-        }
-      });
+      const formData = this.getFormValues(this.$el);
       if (formData.confirm_password === formData.password) {
         axios.post(`${serverURL}/users`, formData).then(response => {
           if (response.data && response.data.type === "success") {

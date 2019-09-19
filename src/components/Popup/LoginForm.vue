@@ -15,17 +15,14 @@
 <script>
 import axios from "axios";
 import { serverURL } from "../../config";
+import { formMixin } from "../../mixins/formMixins";
 
 export default {
   name: "LoginForm",
+  mixins: [formMixin],
   methods: {
     userLogin: function() {
-      const formData = {};
-      Object.values(this.$el).forEach(obj => {
-        if (obj.name) {
-          formData[obj.name] = obj.value;
-        }
-      });
+      const formData = this.getFormValues(this.$el);
       axios
         .get(`${serverURL}/users/authorization`, { params: formData })
         .then(response => {
