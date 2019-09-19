@@ -34,6 +34,7 @@ export default {
               "user",
               JSON.stringify(response.data)
             );
+            this.$store.commit("userSessionSetter", true);
           }
         });
     }

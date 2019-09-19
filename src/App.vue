@@ -30,8 +30,11 @@ export default {
     };
   },
   methods: {
-    authorizationButtonClick: function() {
-      this.isHidden = false;
+    authorizationButtonClick: function(userSession) {
+      if (userSession) {
+        window.sessionStorage.removeItem("user");
+        this.$store.commit("userSessionSetter", false);
+      } else this.isHidden = false;
     },
     closePopup: function() {
       this.isHidden = true;
