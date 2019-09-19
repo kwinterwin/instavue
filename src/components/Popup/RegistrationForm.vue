@@ -35,14 +35,11 @@ export default {
         }
       });
       if (formData.confirm_password === formData.password) {
-
-        // axios.post(`${serverURL}/users`, formData).then(response => {
-        //   if (response.data && response.data.type === "success") {
-        // debugger
-        // const store = this.$store;
-        // console.log(this.$store);
-        //   }
-        // });
+        axios.post(`${serverURL}/users`, formData).then(response => {
+          if (response.data && response.data.type === "success") {
+            this.$store.dispatch("usersSetter");
+          }
+        });
       }
     }
   }

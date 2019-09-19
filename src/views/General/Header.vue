@@ -14,7 +14,6 @@ export default {
   name: "headerVue",
   data: function() {
     return {
-      isPopupHidden: true,
       buttonTabs: {
         true: "Logout",
         false: "Login"

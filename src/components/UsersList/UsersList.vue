@@ -7,23 +7,19 @@
 
 <script>
 import UserListItem from "./UserListItem";
-import axios from "axios";
-import {serverURL} from "../../config";
 
 export default {
   name: "usersList",
   components: {
     UserListItem
   },
-  data: function() {
-    return {
-      users: []
-    };
-  },
   beforeCreate: function() {
-    axios
-      .get(`${serverURL}/users`)
-      .then(response => (this.users = response.data));
+    this.$store.dispatch("usersSetter");
+  },
+  computed: {
+    users: function() {
+      return this.$store.getters.users;
+    }
   }
 };
 </script>

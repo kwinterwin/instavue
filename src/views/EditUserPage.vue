@@ -96,6 +96,7 @@ export default {
         .put(`${serverURL}/users/${this.userId}`, this.user)
         .then(response => {
           this.user = response.data;
+          this.$store.dispatch("usersSetter");
         });
     }
   }
