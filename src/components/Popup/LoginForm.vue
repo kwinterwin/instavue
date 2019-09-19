@@ -9,6 +9,7 @@
       required
     />
     <button type="submit" @click.prevent="userLogin">Enter</button>
+    <MessageBoxes v-if="isShowMessageBox" :messageBoxProperties="messageBoxProperties" />
   </form>
 </template>
 
@@ -16,10 +17,15 @@
 import axios from "axios";
 import { serverURL } from "../../config";
 import { formMixin } from "../../mixins/formMixins";
+import MessageBoxes from "../MessageBoxes";
+import { messageBoxesMixins } from "../../mixins/messageBoxesMixin";
 
 export default {
   name: "LoginForm",
-  mixins: [formMixin],
+  mixins: [formMixin, messageBoxesMixins],
+  components: {
+    MessageBoxes
+  },
   methods: {
     userLogin: function() {
       const formData = this.getFormValues(this.$el);
@@ -34,6 +40,9 @@ export default {
             this.$store.commit("userSessionSetter", true);
             this.$emit("closePopup");
           }
+        })
+        .catch(err => {
+          this.messageBoxPropertiesSetter(err.response.data);
         });
     }
   }

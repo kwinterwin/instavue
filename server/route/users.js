@@ -79,8 +79,13 @@ const usersData = {
     checkedLoginInformation(req, res) {
         const userInfo = req.query;
         users.findOne(userInfo).then((user) => {
-            user = userJSONObject(user);
-            sendResult(200, user, res);
+            if (user) {
+                user = userJSONObject(user);
+                sendResult(200, user, res);
+            }
+            else {
+                sendResult(400, { text: "Incorrect login or password!", type: "error" }, res);
+            }
         });
     },
 
@@ -93,6 +98,9 @@ const usersData = {
                 if (data.ok) {
                     user = userJSONObject(user);
                     sendResult(200, user, res);
+                }
+                else {
+                    sendResult(400, {}, res);
                 }
             })
             .catch((err) => errorHandler(err, res))
